@@ -20,8 +20,11 @@ FASTFETCH_CONFIG_DIR="$HOME/.config/fastfetch"
 FASTFETCH_CONFIG_1="./config.jsonc"
 FASTFETCH_CONFIG_2="./buzcuk.txt"
 
-# Icon Theme Paths (Bu, 4. adımda ikonlar kopyalandıktan sonra oluşur.)
+# Icon Theme Paths (This path is where icons are installed in step 4)
 ICON_THEME_APPS_PATH="$HOME/.icons/$ICON_THEME/apps/scalable"
+
+# Starship configuration file path
+STARSHIP_CONFIG_PATH="$HOME/.config/starship.toml"
 
 
 # Function for colored output
@@ -45,12 +48,12 @@ get_distro_icon_name() {
             # Linux Mint often uses 'linuxmint' ID
             echo "distributor-logo-linuxmint.png"
             ;;
-        kali|antix|archlabs|artix|arch|manjaro|debian|ubuntu)
+        kali|antix|archlabs|artix|arch|manjaro|debian|ubuntu|pop)
             # These IDs directly match the common file naming convention: distributor-logo-ID.png
             echo "distributor-logo-$distro_id.png"
             ;;
         *)
-            # Fallback for other distributions (e.g., Pop_OS! uses 'pop') or generic Linux
+            # Fallback for other distributions
             echo "distributor-logo-$distro_id.png"
             ;;
     esac
@@ -195,7 +198,7 @@ if [[ "$DO_PLANK_SETUP" =~ ^[Yy]$ ]]; then
                     PLANK_SETUP
                 else
                     cecho "red" "ERROR: Plank installation failed. Theme cannot be applied."
-                Fİ
+                fi
             else
                 cecho "red" "ERROR: Unsupported package manager. Skipping Plank installation."
             fi
@@ -292,9 +295,60 @@ else
     cecho "yellow" "Fastfetch installation and configuration skipped."
 fi
 
+# --- 11. Starship Installation and Configuration ---
+cecho "yellow" "### 11. Starship Installation and Configuration (Terminal Prompt)..."
+
+STARSHIP_CONFIG_SETUP() {
+    cecho "yellow" "### Configuring Starship for Bash..."
+    
+    # Check if the starship init command already exists in .bashrc
+    if grep -q 'starship init bash' "$HOME/.bashrc"; then
+        cecho "yellow" "Starship initialization command already exists in .bashrc. Skipping."
+    else
+        # Append Starship initialization to .bashrc
+        echo '' >> "$HOME/.bashrc"
+        echo '# --- Starship Prompt Initialization ---' >> "$HOME/.bashrc"
+        echo 'eval "$(starship init bash)"' >> "$HOME/.bashrc"
+        cecho "green" "Starship initialization added to $HOME/.bashrc. Please source it or restart your terminal."
+    fi
+    
+    # Create an empty starship.toml file if it doesn't exist (user can customize later)
+    if [ ! -f "$STARSHIP_CONFIG_PATH" ]; then
+        touch "$STARSHIP_CONFIG_PATH"
+        cecho "green" "Empty starship configuration file created at $STARSHIP_CONFIG_PATH."
+    fi
+}
+
+# Ask user about Starship setup
+read -r -p "Do you want to install Starship (Terminal Prompt)? (y/n): " DO_STARSHIP_SETUP
+
+if [[ "$DO_STARSHIP_SETUP" =~ ^[Yy]$ ]]; then
+    
+    if command -v starship &> /dev/null; then
+        cecho "green" "Starship found installed. Skipping installation and proceeding to configuration..."
+        STARSHIP_CONFIG_SETUP
+    else
+        # If Starship is not installed, try to install it using curl (common cross-distro method)
+        cecho "yellow" "Starship is not installed. Attempting installation via recommended method (curl)..."
+        
+        if command -v curl &> /dev/null; then
+            if curl -sS https://starship.rs/install.sh | sh; then
+                cecho "green" "Starship installed successfully. Applying configuration..."
+                STARSHIP_CONFIG_SETUP
+            else
+                cecho "red" "ERROR: Starship installation via curl failed. Skipping configuration."
+            fi
+        else
+            cecho "red" "ERROR: curl is not installed. Cannot proceed with Starship installation. Skipping configuration."
+        fi
+    fi
+else
+    cecho "yellow" "Starship installation and configuration skipped."
+fi
+
 # --- End Message ---
 cecho "green" "\n==============================================="
 cecho "green" "Installation Complete!"
 cecho "green" "It is recommended to log out and log back into your Xfce session for settings to take full effect."
+cecho "green" "If you installed Starship, run 'source ~/.bashrc' in your terminal or restart it."
 cecho "green" "==============================================="
-
