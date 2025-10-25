@@ -1,0 +1,120 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+    
+    "logo": {
+        "source": "~/.config/fastfetch/buzcuk.txt",
+        "type": "auto",
+        "color": {
+	    "1": "38;2;176;224;230",
+            "2": "38;2;135;206;235"
+        }
+    },
+    
+    "display": {
+        "separator": " ",
+        "color": {
+            "keys": "38;2;255;184;108",
+            "title": "38;2;255;184;108",
+            "separator": "38;2;86;130;171"
+        }
+    },
+    
+    "modules": [
+        {
+            "type": "title",
+            "color": {
+                "user": "38;2;255;184;108",
+                "at": "38;2;86;130;171",
+                "host": "38;2;240;147;43"
+            }
+        },
+        {
+            "type": "separator",
+            "string": "─",
+            "color": "38;2;86;130;171"
+        },
+        
+        {
+            "type": "os",
+            "key": "OS",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "kernel",
+            "key": "Çekirdek",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "uptime",
+            "key": "Çalışma",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "packages",
+            "key": "Paketler",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "shell",
+            "key": "Kabuk",
+            "keyColor": "38;2;255;184;108"
+        },
+        
+        "break",
+        
+        {
+            "type": "wm",
+            "key": "WM",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "terminal",
+            "key": "Terminal",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "de",
+            "key": "Masaüstü",
+            "keyColor": "38;2;255;184;108"
+        },
+        
+        "break",
+        
+        {
+            "type": "cpu",
+            "key": "CPU",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "gpu",
+            "key": "GPU",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "memory",
+            "key": "RAM",
+            "keyColor": "38;2;255;184;108"
+        },
+        {
+            "type": "disk",
+            "key": "Disk",
+            "keyColor": "38;2;255;184;108"
+        },
+        
+        "break",
+        
+        {
+            "type": "colors",
+            "paddingLeft": 2,
+            "symbol": "circle"
+        },
+        
+        "break",
+        
+        {
+            "type": "custom",
+            "format": "┗━ by buzcuk",
+            "outputColor": "38;2;176;224;230"
+        }
+    ]
+}
