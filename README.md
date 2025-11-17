@@ -60,7 +60,7 @@ Automatic Setup Steps
 
 Clone the repository:
 
-`git clone [https://github.com/alibuzcuk/Xfce-Rice-By-Buzcuk.git](https://github.com/alibuzcuk/Xfce-Rice-By-Buzcuk.git)
+`git clone https://github.com/alibuzcuk/Xfce-Rice-By-Buzcuk.git
 cd Xfce-Rice-By-Buzcuk
 `
 
